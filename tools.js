@@ -13,6 +13,40 @@ var clone = function(obj){
   }
   return c;
 };
-
 exports.clone = clone;
+
+var fs = require('fs');
+
+// save object as JSON string to given file
+// (non-blocking IO)
+exports.saveJSON = function(obj, filename){
+  fs.writeFile(filename, JSON.stringify(obj), function(err){
+    if (err) throw err;
+  });
+};
+
+// load JSON-object from file.
+// (non-blocking IO)
+// callback function: function(obj) {...}
+exports.loadJSON = function(jsonFile, callback){
+  fs.readFile(jsonFile, function(err, data){
+    if (err) throw err;
+    if (data){
+      callback(JSON.parse(data));
+    } else {
+      callback(undefined);
+    }
+  });
+};
+
+// take both arrays and build a hash-table ('{key: value, ...}') 
+// from them.
+exports.hashify = function(l1, l2){
+  var i;
+  var hash = {};
+  for(i=0; i<l1.length; i++){
+    hash[ l1[i] ] = l2[i];
+  }
+  return hash;
+};
 

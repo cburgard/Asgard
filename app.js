@@ -6,12 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
 
-  , armor = require('./routes/armor')
-  , character = require('./routes/character')
-  , combatskill = require('./routes/combatskill')
-  , creature = require('./routes/creature')
-  , magic = require('./routes/magic')
-  , skill = require('./routes/skill')
+  , Asgard = require('./asgard')
 
   , http = require('http')
   , path = require('path');
@@ -37,11 +32,27 @@ app.configure('development', function(){
 });
 
 
+// JSON-DBs: dictionary with {name: path, ...} descriptions
+//           for JSON-files of Asgard objects
+var jsonDBs = (function(path){
+  var dbNames = [  'characters'
+                  ,'combatskills'
+                  ,'creatures'
+                  ,'skills'
+                  ,'spells' ];
+  return tools.hashify(
+           dbNames
+          ,dbNames.map(function(x){return path+x+".json";})
+  );
+})("./data");
+
+
 app.get('/', routes.index);
 
-
 // character management
-app.get   ('/character'     , character.getList);
+app.get('/character', function(req, res){
+  Asgard.sendObjNames(jsonDBs['characters'], res);
+});
 app.get   ('/character/:id' , character.get    );
 app.post  ('/character'     , character.create );
 app.put   ('/character/:id' , character.update );
