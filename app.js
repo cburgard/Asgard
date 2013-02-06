@@ -57,19 +57,19 @@ objTypes.map(function(objType){
   });
   // GET single object
   app.get('/'+objType+'/:id', function(req, res){
-    //TODO
+    Asgard.sendObj(jsonDBs[objType+'s'], req.params.id, res);
   });
   // create single object (POST)
-  app.post('/'+objType+'/:id', function(req, res){
-    //TODO
+  app.post('/'+objType, function(req, res){
+    Asgard.storeObj(jsonDBs[objType+'s'], req.body, res);
   });
   // update single object (PUT)
   app.put('/'+objType+'/:id', function(req, res){
-    //TODO
+    Asgard.updateObj(jsonDBs[objType+'s'], req.params.id, req.body, res);
   });
   // DELETE single object
   app.delete('/'+objType+'/:id', function(req, res){
-    //TODO
+    Asgard.deleteObj(jsonDBs[objType+'s'], req.params.id, res);
   });
 });
 
