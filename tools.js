@@ -20,7 +20,7 @@ var fs = require('fs');
 // save object as JSON string to given file
 // (non-blocking IO)
 exports.saveJSON = function(obj, filename){
-  fs.writeFile(filename, JSON.stringify(obj), function(err){
+  fs.writeFile(filename, JSON.stringify(obj), 'utf8', function(err){
     if (err) throw err;
   });
 };
@@ -29,10 +29,16 @@ exports.saveJSON = function(obj, filename){
 // (non-blocking IO)
 // callback function: function(obj) {...}
 exports.loadJSON = function(jsonFile, callback){
-  fs.readFile(jsonFile, function(err, data){
-    if (err) throw err;
-    if (data){
-      callback(JSON.parse(data));
+  fs.exists(jsonFile, function(exists){
+    if (exists){
+      fs.readFile(jsonFile, 'utf8', function(err, data){
+        if (err) throw err;
+        if (data){
+          callback(JSON.parse(data));
+        } else {
+          callback(undefined);
+        }
+      });
     } else {
       callback(undefined);
     }
