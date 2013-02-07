@@ -1,0 +1,22 @@
+
+REST-API:
+  /api/characters
+  /api/character/:id
+
+  /api/combatskills
+  /api/combatskill/:id
+
+  /api/creatures
+  /api/creature/:id
+
+  /api/skills
+  /api/skill/:id
+  
+  /api/spells
+  /api/spell/:id
+
+
+page:
+  /
+  /login 
+

@@ -58,23 +58,23 @@ app.get('/', routes.index);
 // define behavior for GET, PUT, POST & DELETE
 objTypes.map(function(objType){
   // GET name list
-  app.get('/'+objType+'s', function(req, res){
+  app.get('/api/'+objType+'s', function(req, res){
     RESTapi.sendObjNames(jsonDBs[objType], res);
   });
   // GET single object
-  app.get('/'+objType+'/:id', function(req, res){
+  app.get('/api/'+objType+'/:id', function(req, res){
     RESTapi.sendObj(jsonDBs[objType], req.params.id, res);
   });
   // create single object (POST)
-  app.post('/'+objType, function(req, res){
+  app.post('/api/'+objType, function(req, res){
     RESTapi.storeObj(jsonDBs[objType], req.body, res);
   });
   // update single object (PUT)
-  app.put('/'+objType+'/:id', function(req, res){
+  app.put('/api/'+objType+'/:id', function(req, res){
     RESTapi.updateObj(jsonDBs[objType], req.params.id, req.body, res);
   });
   // DELETE single object
-  app.delete('/'+objType+'/:id', function(req, res){
+  app.delete('/api/'+objType+'/:id', function(req, res){
     RESTapi.deleteObj(jsonDBs[objType], req.params.id, res);
   });
 });

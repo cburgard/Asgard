@@ -1,6 +1,6 @@
 
 var clone = function(obj){
-  if ( obj === null ){
+  if ( obj === null || obj === undefined ){
     return obj;
   }
   var c = {};
